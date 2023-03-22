@@ -1,46 +1,57 @@
 #!/usr/bin/python3
-"""Module that starts a Flask web application"""
-from flask import Flask, render_template
+from flask import Flask, escape, render_template
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello_route():
-    """Greets the user"""
-    return "Hello HBNB!"
+@app.route('/')
+def hello():
+    '''
+    Hello route
+    '''
+    return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes=False)
-def HBNB():
-    """Displays HBNB"""
-    return "HBNB"
+@app.route('/hbnb')
+def hbnb():
+    '''
+    HBNB route
+    '''
+    return 'HBNB:'
 
 
-@app.route('/c/<string:text>', strict_slashes=False)
+@app.route('/c/<text>')
 def c_text(text):
-    """Displays C and a text sent by the user"""
-    text = text.replace('_', ' ')
-    return "C {}".format(text)
+    '''
+    /c/<text> route
+    '''
+    return 'C {}'.format(text.replace('_', ' '))
 
 
-@app.route('/python', strict_slashes=False)
-@app.route('/python/<string:text>', strict_slashes=False)
-def python_route(text="is cool"):
-    """Displays Python and a text sent by the user, by default 'is cool'"""
-    text = text.replace('_', ' ')
-    return "Python {}".format(text)
+@app.route('/python/')
+@app.route('/python/<text>')
+def python_text(text='is cool'):
+    '''
+    /python/<text> route
+    '''
+    return 'Python {}'.format(text.replace('_', ' '))
 
 
-@app.route('/number/<int:n>', strict_slashes=False)
+@app.route('/number/<int:n>')
 def number_route(n):
-    """Displays user sent number followed by ' is a number' if n is an int"""
-    return "{} is a number".format(n)
+    '''
+    /number/<n> route
+    '''
+    return '{} is a number'.format(int(n))
 
 
-@app.route('/number_template/<int:n>', strict_slashes=False)
+@app.route('/number_template/<int:n>')
 def number_template(n):
-    """Renders a template"""
+    '''
+    /number_template/<n> route
+    '''
     return render_template('5-number.html', n=n)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000')
+
+if __name__ == '__main__':
+    app.run()
+    app.url_map.strict_slashes = False

@@ -43,26 +43,13 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
-            integers = ['number_rooms', 'number_bathrooms', 'max_guest',
-                        'price_by_night']
-            floats = ['latitude', 'longitude']
-            for index in range(1, len(my_list)):
-                param = my_list[index].split('=')
-                key = param[0]
-                value = param[1]
-                if key in integers:
-                    value = int(value)
-                    setattr(obj, key, value)
-                elif key in floats:
-                    value = float(value)
-                    setattr(obj, key, value)
-                elif type(value) == str:
-                    value = value[1:-1]
-                    value = value.replace('_', ' ')
-                    value = value.replace('"', '\\"')
-                    setattr(obj, key, value)
-                else:
-                    continue
+            for params in my_list[1:]:
+                key_value = params.split('=')
+                key = key_value[0]
+                value = key_value[1]
+                table = {34: None, 95: 32}
+                value = value.translate(table)
+                setattr(obj, key, value)
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:

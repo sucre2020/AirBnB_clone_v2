@@ -1,26 +1,32 @@
 #!/usr/bin/python3
-"""Module that starts a Flask web application"""
-from flask import Flask
+from flask import Flask, escape
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello_route():
-    """Greets the user"""
-    return "Hello HBNB!"
+@app.route('/')
+def hello():
+    '''
+    Hello route
+    '''
+    return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes=False)
-def HBNB():
-    """Displays HBNB"""
-    return "HBNB"
+@app.route('/hbnb')
+def hbnb():
+    '''
+    HBNB route
+    '''
+    return 'HBNB:'
 
 
-@app.route('/c/<string:text>', strict_slashes=False)
+@app.route('/c/<text>')
 def c_text(text):
-    """Displays C and a text sent by the user"""
-    text = text.replace('_', ' ')
-    return "C {}".format(text)
+    '''
+    /c/<text> route
+    '''
+    return 'C {}'.format(text.replace('_', ' '))
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000')
+
+if __name__ == '__main__':
+    app.run()
+    app.url_map.strict_slashes = False

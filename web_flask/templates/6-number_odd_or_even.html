@@ -1,9 +1,10 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <HTML lang="en">
-    <HEAD>
-        <title>HBNB</title>
-    </HEAD>
-    <BODY>
-        <H1>{%- if n is divisibleby 2 -%} Number: {{ n }} is even {%- else -%} Number: {{ n }} is odd {% endif %}</H1>
-    </BODY>
-</HTML>
+  <HEAD>
+    <TITLE>HBNB</TITLE>
+  </HEAD>
+  <BODY>
+    {% if n is divisibleby 2 %}<H1>Number: {{n}} is even</H1>{% else %}
+    <H1>Number: {{n}} is odd</H1>{% endif %}
+  </BODY>
+  </HTML>
